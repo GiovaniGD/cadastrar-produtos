@@ -1,0 +1,39 @@
+<header class="py-3 mb-4" style="background-color: rgb(48, 70, 132); border-bottom: 1rem; border-color: black;">
+    <div class="container">
+      <div class="row justify-content-between">
+        
+        <div class="col-auto align-content-center d-flex" style="flex-wrap: inherit;">
+            <h3 style="color: white;">Cadastro de produtos</h3>
+        </div>
+    
+        <ul class="nav col-auto align-content-center">
+          <li><a href="/" class="nav-link" style="color: white;">Inicio</a></li>
+          <li><a href="/listaProdutos" class="nav-link" style="color: white;">Produtos</a></li>
+          <li><a href="/" class="nav-link" style="color: white;">Cadastrar produto</a></li>
+        </ul>
+    
+        <div class="col-auto">
+            
+              <% if (locals.alerta.usuario) { %>
+
+                <div class="col-auto p-0">
+                </div>
+                
+              <% }else{ %>
+                <div class="col-auto">
+                  <div class="row align-content-center height100">
+                    <a href="/login"><button type="button" class="btn btn-outline-primary mx-2 lara">Login</button></a>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="row align-content-center height100">
+                    <a href="/cadastro"><button type="button" class="btn btn-primary">Cadastrar-se</button></a>
+                  </div>
+                </div>
+
+              <% } %> 
+            
+        </div>
+      </div>
+    </div>
+  </header>

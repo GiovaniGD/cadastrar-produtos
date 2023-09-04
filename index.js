@@ -1,0 +1,79 @@
+const express = require('express'); 
+const app = express();
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session');
+
+const usuarioController = require('./controllers/usuarioController');
+const produtosController = require('./controllers/produtosController');
+
+const port = 3002;
+
+app.use(session({secret: 'ripmangulos04'}));
+app.use(expressLayouts);
+app.set('layout', './layouts/default/login');
+app.set('view engine', 'ejs');
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use((req, res, next) => {
+    if (req.session.usuario) {
+        console.log('Login efetuado com sucesso');
+        res.locals.alerta ={
+            usuario: req.session.usuario
+        };
+        next();
+    }else{
+        console.log('Não logado');
+        if(req.url == '/' || req.url == '/listaProdutos' || req.url == '/cadastroProduto'){
+            res.redirect('/login?erro=2');
+        }else{
+            res.locals.alerta ={
+                usuario: req.session.usuario
+            };
+            next();
+        }
+    }
+});
+
+app.get('/', (req, res) => {
+    app.set('layout', './cadastroProduto');
+    res.render('cadastroProduto');
+});
+
+app.get('/login', (req, res) => {
+    app.set('layout', './layouts/default/login');
+    usuarioController.login(req, res);
+});
+
+app.post('/login', (req, res) => {
+    usuarioController.autenticar(req, res);
+});
+
+app.get('/cadastro', (req, res) => {
+    app.set('layout', './layouts/default/login');
+    usuarioController.cadastro(req, res);
+});
+
+app.post('/cadastro', (req, res) => {
+    usuarioController.cadastrar(req, res);
+});
+
+app.get('/', (req, res) => {
+    app.set('layout', './cadastroProduto');
+    produtosController.cadastroProduto(req, res);
+});
+
+app.post('/cadastroProduto', (req, res) => {
+    produtosController.efetivarCadastro(req, res);
+});
+
+app.get('/listaProdutos', (req, res) => {
+    app.set('layout', './listaProdutos');
+    produtosController.todosProdutos(req, res);
+});
+
+app.listen(port, () => { 
+    console.log(`Escutando na porta: ${port}`);
+});
