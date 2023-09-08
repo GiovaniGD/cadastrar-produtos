@@ -37,7 +37,7 @@ function cadastro(req, res) {
 async function autenticar(req, res) {
     const { email, senha } = req.body;
     let resp = await usuarioModel.verificarUsuario(email, senha);
-    if(resp.length > 0){
+    if(resp !== null && resp.length > 0){
         req.session.usuario = {
             id: resp[0].id,
             nome: resp[0].nome,
@@ -53,24 +53,32 @@ async function autenticar(req, res) {
 }
 
 async function cadastrar(req, res) {
-    const { nome, email, senha , senha2} = req.body;
-    if(senha !== senha2){
-        console.log('Senhas não conferem');
-        res.redirect('/cadastro?erro=2');
-    }else{
-        let resp = await usuarioModel.cadastrarUsuario(nome, email, senha);
-    if(resp === false){
-        console.log('Usuário já existe');
-        res.redirect('/cadastro?erro=1');
-        }else if(resp.affectedRows > 0){
-            console.log('Usuário cadastrado');
-            res.redirect('/login?erro=3');
-        }else{
-            console.log('Erro ao cadastrar usuário');
-            res.redirect('/cadastro');
-        }
-    }
+  const { nome, email, senha, senha2 } = req.body;
+
+  if (senha !== senha2) {
+      console.log('Senhas não conferem');
+      res.redirect('/cadastro?erro=2');
+  } else {
+      try {
+          const resp = await usuarioModel.cadastrarUsuario(nome, email, senha);
+
+          if (resp === false) {
+              console.log('Usuário já existe');
+              res.redirect('/cadastro?erro=1');
+          } else if (resp instanceof usuarioModel) {
+              console.log('Usuário cadastrado');
+              res.redirect('/login?erro=3');
+          } else {
+              console.log('Erro ao cadastrar usuário');
+              res.redirect('/cadastro');
+          }
+      } catch (error) {
+          console.error('Erro ao cadastrar usuário:', error);
+          res.redirect('/cadastro');
+      }
+  }
 }
+
 
 function logout(req, res){
     delete req.session.usuario;
