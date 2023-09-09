@@ -23,7 +23,9 @@ async function todosProdutos(req, res) {
 }
 
 async function efetivarCadastro(req, res) {
-  const {nome, descricao, categoria, valor, estoque, imagem} = req.body;
+  const {nome, descricao, categoria, valor, estoque} = req.body;
+  const imagem = req.file.imagem;
+
   let id_usuario = req.session.usuario.id_usuario;
   console.log(req.body);
   let respEsp = await produtosModel.cadastroCategoria(categoria);

@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const multer = require('multer');
 
 const usuarioController = require('./controllers/usuarioController');
 const produtosController = require('./controllers/produtosController');
@@ -16,6 +17,18 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); // Substitua pelo caminho real onde deseja salvar as imagens
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
+  }
+});
+
+const upload = multer({ storage: storage });
 
 app.use((req, res, next) => {
     if (req.session.usuario) {
@@ -60,12 +73,12 @@ app.post('/cadastro', (req, res) => {
     usuarioController.cadastrar(req, res);
 });
 
-app.get('/', (req, res) => {
+app.get('/', upload.single('imagem'), (req, res) => {
     app.set('layout', './cadastroProduto');
     produtosController.cadastroProduto(req, res);
 });
 
-app.post('/cadastroProduto', (req, res) => {
+app.post('/cadastroProduto', upload.single('imagem'), (req, res) => {
     produtosController.efetivarCadastro(req, res);
 });
 
