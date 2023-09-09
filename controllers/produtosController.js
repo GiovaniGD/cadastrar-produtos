@@ -1,14 +1,13 @@
 const produtosModel = require("../models/produtosModel");
 const usuarioModel = require("../models/usuarioModel");
+
 let produtos = [];
 
 function cadastroProduto(req, res) {
   res.render('cadastroProduto');
 }
-
 async function todosProdutos(req, res) {
   produtos = await produtosModel.todosProdutos();
-
   for (const produto of produtos) {
       let categoria = await produtosModel.pegarCategoria(produto.id_categoria);
       if (categoria && categoria.length > 0) {

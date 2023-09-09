@@ -9,7 +9,6 @@ class ProdutoModel {
         this.descricao = descricao;
         this.valor = valor;
         this.estoque = estoque;
-        this.categoria = categoria;
     }
 
     static async todosProdutos(){
