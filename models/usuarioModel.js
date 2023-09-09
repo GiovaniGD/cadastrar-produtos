@@ -22,14 +22,12 @@ class UsuarioModel {
   }
 
   static async verificarEmail(email) {
-    console.log("Verificando email");
     let sql = `SELECT * FROM usuarios WHERE email = '${email}'`;
     let resp = await database.query(sql);
     return resp;
   }
 
   static async cadastrarUsuario(nome, email, senha) {
-    console.log("Cadastrando usuário");
     let sql = `INSERT INTO usuarios (nome, email, senha) VALUES ('${nome}', '${email}', '${md5(senha)}')`;
     let resp = await database.query(sql);
     if (resp.insertId) {

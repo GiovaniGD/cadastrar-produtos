@@ -39,12 +39,12 @@ async function autenticar(req, res) {
     let resp = await usuarioModel.verificarUsuario(email, senha);
     if(resp !== null && resp.length > 0){
         req.session.usuario = {
-            id: resp[0].id,
+            id_usuario: resp[0].id_usuario,
             nome: resp[0].nome,
             email: resp[0].email,
         };
         res.locals.alerta = {usuario: req.session.usuario};
-        console.log('Usuário encontrado');
+        console.log(req.session.usuario);
         res.redirect('/');
     }else{
         console.log('Usuário não encontrado');
