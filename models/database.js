@@ -21,10 +21,8 @@ async function query(sql) {
   const connection = await connect();
   try {
     const [rows] = await connection.execute(sql);
-    console.log('Query executada');
     return rows;
   } catch (error) {
-      console.error('Falha em executar query');
       throw error;
   } finally {
     if (connection) {

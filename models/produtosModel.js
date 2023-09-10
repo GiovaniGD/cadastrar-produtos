@@ -1,7 +1,7 @@
 const database = require('./database');
 
 class ProdutoModel {
-    constructor(id_produto, id_usuario, id_categoria, nome, descricao, valor, estoque, categoria) {
+    constructor(id_produto, id_usuario, id_categoria, nome, descricao, valor, estoque, categoria, imagem) {
         this.id_produto = id_produto;
         this.id_usuario = id_usuario;
         this.id_categoria = id_categoria;
@@ -9,6 +9,8 @@ class ProdutoModel {
         this.descricao = descricao;
         this.valor = valor;
         this.estoque = estoque;
+        this.categoria = categoria;
+        this.imagem = imagem;
     }
 
     static async todosProdutos(){
@@ -17,10 +19,9 @@ class ProdutoModel {
         return resp;
     }
 
-    static async cadastroProduto(id_usuario, id_categoria, nome, descricao, valor, estoque, categoria){
-        let sql = `INSERT INTO produto (id_usuario, id_categoria, nome, descricao, valor, estoque, categoria) VALUES ('${id_usuario}', '${id_categoria}', '${nome}', '${descricao}', '${valor}', '${estoque}', '${categoria}')`;
+    static async cadastroProduto(id_usuario, id_categoria, nome, descricao, valor, estoque, categoria, imagem){
+        let sql = `INSERT INTO produto (id_usuario, id_categoria, nome, descricao, valor, estoque, categoria, imagem) VALUES ('${id_usuario}', '${id_categoria}', '${nome}', '${descricao}', '${valor}', '${estoque}', '${categoria}', '${imagem}')`;
         let resp = await database.query(sql);
-        console.log(resp);
         return resp;
     }
 
@@ -38,19 +39,6 @@ class ProdutoModel {
 
     static async pegarCategoria(id){
         let sql = `SELECT * FROM categoria WHERE id_categoria = '${id}'`;
-        let resp = await database.query(sql);
-        return resp;
-    }
-
-    static async imagemProduto(imagem, id_produto){
-        let sql = `INSERT INTO imagem (id_produto, url) VALUES ('${id_produto}', '${imagem}')`;
-        let resp = await database.query(sql);
-        console.log(resp);
-        return resp;
-    }
-
-    static async pegarImagem(id){
-        let sql = `SELECT * FROM imagem WHERE id_produto = '${id}'`;
         let resp = await database.query(sql);
         return resp;
     }

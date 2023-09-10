@@ -20,15 +20,16 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/'); // Substitua pelo caminho real onde deseja salvar as imagens
+      cb(null, 'public/uploads/') // Diretório onde os arquivos serão salvos
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
+      cb(null, file.originalname)
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage
+});
 
 app.use((req, res, next) => {
     if (req.session.usuario) {
@@ -73,7 +74,7 @@ app.post('/cadastro', (req, res) => {
     usuarioController.cadastrar(req, res);
 });
 
-app.get('/', upload.single('imagem'), (req, res) => {
+app.get('/', (req, res) => {
     app.set('layout', './cadastroProduto');
     produtosController.cadastroProduto(req, res);
 });
