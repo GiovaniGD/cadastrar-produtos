@@ -69,8 +69,8 @@ async function cadastrar(req, res) {
               console.log('Usuário cadastrado');
               res.redirect('/login?erro=3');
           } else {
-              console.log('Erro ao cadastrar usuário');
-              res.redirect('/cadastro');
+              console.log('Cadastrado');
+              res.redirect('/login');
           }
       } catch (error) {
           console.error('Erro ao cadastrar usuário:', error);

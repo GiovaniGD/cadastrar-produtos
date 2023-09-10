@@ -3,10 +3,10 @@ const mysql = require('mysql2/promise');
 async function connect() {
   try {
     const connection = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'cadastroprodutos'
+      host: 'sql10.freemysqlhosting.net',
+      user: 'sql10645444',
+      password: 'n2NXTbvGmV',
+      database: 'sql10645444'
     });
 
     console.log('Banco de dados conectado');
