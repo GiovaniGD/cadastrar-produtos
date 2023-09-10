@@ -79,9 +79,17 @@ async function cadastrar(req, res) {
   }
 }
 
+async function pegarUsuario(req, res, next) {
+  if (req.session.usuario) {
+    const usuario = req.session.usuario;
+    res.locals.usuario = usuario;
+  }
+  res.render('listaProdutos', { usuario });
+}
+
 function logout(req, res){
     delete req.session.usuario;
     res.redirect('/login');
 }
 
-module.exports = { login, cadastro, autenticar, cadastrar, logout };
+module.exports = { login, cadastro, autenticar, cadastrar, pegarUsuario, logout };

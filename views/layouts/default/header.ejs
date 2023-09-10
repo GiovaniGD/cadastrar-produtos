@@ -13,8 +13,10 @@
           <li><a href="/" class="nav-link text-light">Cadastrar produto</a></li>
         </ul>
 
-        <div class="col-auto">
-            
+        <div class="col-auto align-content-center d-flex mt-3" style="flex-wrap: inherit;">
+          <% if (usuario) { %>
+            <p class="text-light fw-bold">User: <span style="text-decoration: underline; padding-left: 0.5rem;"><%= usuario.nome %></span></p>
+          <% } %>
         </div>
 
       </div>

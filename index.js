@@ -51,6 +51,15 @@ app.use((req, res, next) => {
     }
 });
 
+app.use((req, res, next) => {
+  if (req.session.usuario) {
+    res.locals.usuario = req.session.usuario;
+  } else {
+    res.locals.usuario = null;
+  }
+  next();
+});
+
 app.get('/', (req, res) => {
     app.set('layout', './cadastroProduto');
     res.render('cadastroProduto');
