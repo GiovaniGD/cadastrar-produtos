@@ -6,6 +6,7 @@ let produtos = [];
 function cadastroProduto(req, res) {
   res.render('cadastroProduto');
 }
+
 async function todosProdutos(req, res) {
   produtos = await produtosModel.todosProdutos();
   for (const produto of produtos) {

@@ -16,22 +16,24 @@
     <div class="container">
         <div>
             <div>
-                <div class="row row-cols-md-1 g-4">
+                <div class="row row-cols-md-1 g-4 mt-1">
 
                     <% produtos.forEach(produto => { %> 
 
-                    <div>
-                      <div class="card">
-                        <img src="/uploads/<%- produto.imagem %>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h4 class="card-title fw-bold"><%- produto.nome %></h5>
-                          <h5>R$<%- produto.valor %></h5>
-                          <p class="card-text">Descrição: <%- produto.descricao %></p>
-                          <p>Quantidade em estoque: <%- produto.estoque %></p>
-                          <p>Categoria: <%- produto.categoria %></p>
+                      <div class="container mt-4">
+                        <div class="row bg-white rounded-4">
+                          <img src="/uploads/<%- produto.imagem %>" class="img-fluid p-0" id="image" style="max-width: 100%;border-radius: 1rem 0 0 1rem ;">
+                          <div class="col-md-8">
+                            <div class="card-body mt-4" style="border: none; margin-left: 2rem;">
+                              <h4 class="card-title fw-bold mb-3"><%- produto.nome %></h4>
+                              <h5 class="mb-3">R$<%- produto.valor %></h5>
+                              <p class="card-text">Descrição: <%- produto.descricao %></p>
+                              <p>Quantidade em estoque: <%- produto.estoque %></p>
+                              <p>Categoria: <%- produto.categoria %></p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
                     <% }); %>
 

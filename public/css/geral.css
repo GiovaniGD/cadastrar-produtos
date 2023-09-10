@@ -34,9 +34,14 @@ button:hover {
 }
 
 ul li a:hover {
-    color: rgb(255, 237, 187) !important;
+    color: rgb(255, 230, 160) !important;
 }
 
 #titulo:hover {
     color: rgb(231, 231, 231);
+}
+
+#image {
+    width: 17rem;
+    height: 17rem;
 }

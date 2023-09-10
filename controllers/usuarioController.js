@@ -79,7 +79,6 @@ async function cadastrar(req, res) {
   }
 }
 
-
 function logout(req, res){
     delete req.session.usuario;
     res.redirect('/login');
