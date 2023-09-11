@@ -42,4 +42,12 @@ async function efetivarCadastro(req, res) {
   }
 }
 
-module.exports = { cadastroProduto, efetivarCadastro, todosProdutos };
+async function deleteProduto(req, res) { 
+  if(await produtosModel.deleteProduto(req.params.id_produto)){
+      res.redirect('/listaProdutos');
+  }else{
+      res.redirect('/listaProdutos');
+  }
+}
+
+module.exports = { cadastroProduto, efetivarCadastro, todosProdutos, deleteProduto };

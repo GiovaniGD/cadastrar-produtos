@@ -42,6 +42,11 @@ class ProdutoModel {
         let resp = await database.query(sql);
         return resp;
     }
+
+    static async deleteProduto(id_produto) {
+        let res = await database.query(`DELETE FROM produto WHERE id_produto = ${id_produto}`);
+        return true;
+    }
 }
 
 module.exports = ProdutoModel;

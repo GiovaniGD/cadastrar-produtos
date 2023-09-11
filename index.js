@@ -97,6 +97,12 @@ app.get('/listaProdutos', (req, res) => {
     produtosController.todosProdutos(req, res);
 });
 
+app.get('/cadastroProduto/delete/:id_produto', (req, res) => {
+  produtosController.deleteProduto(req, res);
+});
+
+app.delete('/cadastroProduto', produtosController.deleteProduto);
+
 app.listen(port, () => { 
     console.log(`Escutando na porta: ${port}`);
 });
