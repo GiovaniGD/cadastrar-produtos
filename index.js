@@ -40,7 +40,7 @@ app.use((req, res, next) => {
         next();
     }else{
         console.log('Não logado');
-        if(req.url == '/' || req.url == '/listaProdutos' || req.url == '/cadastroProduto'){
+        if(req.url == '/' || req.url == '/cadastroProduto'){
             res.redirect('/login?erro=2');
         }else{
             res.locals.alerta ={
@@ -60,7 +60,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/cadastroProduto', (req, res) => {
     app.set('layout', './cadastroProduto');
     res.render('cadastroProduto');
 });
@@ -83,7 +83,7 @@ app.post('/cadastro', (req, res) => {
     usuarioController.cadastrar(req, res);
 });
 
-app.get('/', (req, res) => {
+app.get('/cadastroProduto', (req, res) => {
     app.set('layout', './cadastroProduto');
     produtosController.cadastroProduto(req, res);
 });
@@ -92,7 +92,7 @@ app.post('/cadastroProduto', upload.single('imagem'), (req, res) => {
     produtosController.efetivarCadastro(req, res);
 });
 
-app.get('/listaProdutos', (req, res) => {
+app.get('/', (req, res) => {
     app.set('layout', './listaProdutos');
     produtosController.todosProdutos(req, res);
 });
@@ -102,6 +102,7 @@ app.get('/cadastroProduto/delete/:id_produto', (req, res) => {
 });
 
 app.delete('/cadastroProduto', produtosController.deleteProduto);
+
 
 app.listen(port, () => { 
     console.log(`Escutando na porta: ${port}`);

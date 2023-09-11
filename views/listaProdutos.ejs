@@ -29,10 +29,10 @@
                               <p class="card-text">Descrição: <%- produto.descricao %></p>
                               <p>Quantidade em estoque: <%- produto.estoque %></p>
                               <p>Categoria: <%- produto.categoria %></p>
+                              <a href="/cadastroProduto/delete/<%- produto.id_produto %>" class="btn btn-danger">
+                                <i class="bi-trash">Apagar</i>
+                              </a>
                             </div>
-                            <a href="/cadastroProduto/delete/<%- produto.id_produto %>" class="btn btn-danger">
-                              <i class="bi-trash"></i>
-                            </a>
                           </div>
                         </div>
                       </div>
